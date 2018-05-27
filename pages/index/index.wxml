@@ -1,0 +1,79 @@
+<!--index.wxml-->
+<scroll-view scroll-y bindscrolltolower="lower">
+	<view class="main">
+		<!-- head -->
+		<view class="header">
+			<!-- 定位和信息栏 -->
+			<view class="hd">
+				<view class="location">
+					<navigator class="par" hover-class="none" url="../location/location">
+						<image src="../../assets/images/location.png" style="width: 36rpx; height: 30rpx;" />
+						<text> 东华理工大学（南昌校区）</text>
+					</navigator>
+				</view>
+				<navigator class="message" hover-class="none" url="../search/search">
+					<image src="../../assets/images/message.png" style="width: 36rpx; height: 36rpx;" />
+				</navigator>
+			</view>
+			<!-- 搜索栏 -->
+			<view class="home-search">
+				<navigator class="search_navigator" hover-class="none" url="../search/search">
+					<input type="text" name="goods" class="weui-input search" placeholder="搜索附近的商家商品" disabled="true" />
+					<image src="../../assets/images/search.png" style="width: 32rpx; height: 32rpx;" />
+				</navigator>
+			</view>
+		</view>
+		<!-- 广告 -->
+		<view class="ad">
+			<image src="https://img30.360buyimg.com/mobilecms/jfs/t20059/112/31723189/40917/c70393ad/5ae1c403Na61ae8ac.png" style="width: 100%; height: 240rpx;"
+			/>
+		</view>
+		<!-- 分类导航栏 -->
+		<view class="cateBar">
+			<block wx:for="{{cateBarLists}}" wx:key="index" data-id="{{cateBarLists.id}}">
+				<view class="cateItem">
+					<image src="{{item.image}}" style="width: 80rpx; height: 80rpx;" />
+					<text>{{item.header}}</text>
+				</view>
+			</block>
+		</view>
+		<view class="nearShop">
+			<text>附近的商家</text>
+		</view>
+		<!-- 商家列表 -->
+		<view class="content">
+			<view class="shoplist">
+				<block wx:for="{{shopInfo}}" wx:key="index">
+					<navigator class="shop" hover-class="none" url="../innerShop/innerShop?id={{item.id}}" >
+						<view class="shopImg">
+							<image src="{{item.image}}" />
+						</view>
+						<view class="shopMsg">
+							<view class="shopName">{{item.name}}</view>
+							<view class="deliver" style="{{item.deliver_method == '达达专送'?'color: #16A9FF; border-color: #16A9FF;':''}}">
+								<text class="deliverMethod">{{item.deliver_method}}</text>
+								-
+								<text class="deliverTime">{{item.deliver_time}}</text>
+							</view>
+							<view class="saleStatus">
+								<view class="showStars">
+								</view>
+								<text class="sale2month">月售{{item.sale_month}}单</text>
+							</view>
+							<view class="deliverMsg">
+								<text>{{item.deliverMsg.deprice}}，距离{{item.deliverMsg.distance}}，{{item.deliverMsg.basePrice}}</text>
+							</view>
+							<view class="activities" style="display: {{item.noactivity?'none':''}};">
+							</view>
+						</view>
+					</navigator>
+
+				</block>
+			</view>
+		</view>
+		<!-- end -->
+		<view class="noMoreShop">
+			<text>没有更多商家啦</text>
+		</view>
+	</view>
+</scroll-view>

@@ -1,0 +1,55 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/search/search",
+        "template/searchBar/searchBar",
+        "pages/relax2buy/relax2buy",
+        "pages/orderlist/orderlist",
+        "pages/user/user",
+        "pages/category/category",
+        "pages/logs/logs",
+        "pages/location/location",
+        "pages/innerShop/innerShop",
+        "template/innerShop/innerShop"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#4DCC57",
+        "navigationBarTitleText": "京东到家极速达",
+        "navigationBarTextStyle": "#fff"
+    },
+    "tabBar": {
+        "list": [
+            {
+                "pagePath": "pages/index/index",
+                "text": "首页",
+                "iconPath": "assets/images/10.png",
+                "selectedIconPath": "assets/images/11.png"
+            },
+            {
+                "pagePath": "pages/category/category",
+                "text": "分类",
+                "iconPath": "assets/images/20.png",
+                "selectedIconPath": "assets/images/21.png"
+            },
+            {
+                "pagePath": "pages/relax2buy/relax2buy",
+                "text": "轻松购",
+                "iconPath": "assets/images/30.png",
+                "selectedIconPath": "assets/images/31.png"
+            },
+            {
+                "pagePath": "pages/orderlist/orderlist",
+                "text": "订单",
+                "iconPath": "assets/images/40.png",
+                "selectedIconPath": "assets/images/41.png"
+            },
+            {
+                "pagePath": "pages/user/user",
+                "text": "我的",
+                "iconPath": "assets/images/50.png",
+                "selectedIconPath": "assets/images/51.png"
+            }
+        ]
+    }
+}
