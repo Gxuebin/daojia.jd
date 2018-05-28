@@ -6,9 +6,9 @@
 			<!-- 定位和信息栏 -->
 			<view class="hd">
 				<view class="location">
-					<navigator class="par" hover-class="none" url="../location/location">
+					<navigator class="par" hover-class="none" url="../address/address">
 						<image src="../../assets/images/location.png" style="width: 36rpx; height: 30rpx;" />
-						<text> 东华理工大学（南昌校区）</text>
+						<text> 东华理工大学（南昌校区）研究生一栋</text>
 					</navigator>
 				</view>
 				<navigator class="message" hover-class="none" url="../search/search">
@@ -57,6 +57,15 @@
 							</view>
 							<view class="saleStatus">
 								<view class="showStars">
+									<block wx:for="{{item.star_on}}" wx:key="id">
+										<image src="../../assets/images/star_on.png" style="width: 24rpx; height: 24rpx;" />
+									</block>
+									<block wx:for="{{item.star_half}}" wx:key="id">
+										<image src="../../assets/images/star_half.png" style="width: 24rpx; height: 24rpx;" />
+									</block>
+									<block wx:for="{{item.star_off}}" wx:key="index">
+										<image src="../../assets/images/star_off.png" style="width: 24rpx; height: 24rpx;" />
+									</block>
 								</view>
 								<text class="sale2month">月售{{item.sale_month}}单</text>
 							</view>
@@ -64,6 +73,14 @@
 								<text>{{item.deliverMsg.deprice}}，距离{{item.deliverMsg.distance}}，{{item.deliverMsg.basePrice}}</text>
 							</view>
 							<view class="activities" style="display: {{item.noactivity?'none':''}};">
+								<view class="more_activity {{item.hasMoreActivity?'_rotate':''}}" style="display:{{item.activities.length>2?'':'none'}}"
+								 catchtap="show_more" data-index="{{item.id}}"></view>
+								<block wx:for="{{item.activities}}" wx:for-item="activity" wx:key="{{index}}">
+									<view class="activity" style="display:{{index>1&&!item.hasMoreActivity?'none':''}}">
+										<text class="{{activity.name}}">{{activity.title}}</text>
+										{{activity.desc}}
+									</view>
+								</block>
 							</view>
 						</view>
 					</navigator>
