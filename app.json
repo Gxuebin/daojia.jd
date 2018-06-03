@@ -4,13 +4,11 @@
         "pages/search/search",
         "template/searchBar/searchBar",
         "pages/relax2buy/relax2buy",
-        "pages/orderlist/orderlist",
         "pages/user/user",
         "pages/category/category",
         "pages/logs/logs",
         "pages/location/location",
-        "pages/innerShop/innerShop",
-        "template/innerShop/innerShop"
+        "pages/innerShop/innerShop"
     ],
     "window": {
         "backgroundTextStyle": "light",

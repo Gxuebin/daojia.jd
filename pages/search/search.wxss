@@ -1,0 +1,88 @@
+/* pages/search/search.wxss */
+@import '../../template/searchBar/searchBar.wxss';
+
+.search_page {
+    font-size: 26rpx;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.search_page .search_content {
+    margin: 20rpx;
+}
+
+.search_page .search_content .hot_search .hot_search_hd {
+    /* position: absolute; */
+    margin-top: 8%;
+    padding-bottom: 20rpx;
+}
+
+.search_page .search_content .hot_search .hot_items {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    border-top: 2rpx solid rgba(0, 0, 0, 0.2);
+    padding: 10rpx 0;
+} 
+
+.search_page .search_content .hot_search .hot_items .hot {
+    display: inline-block;
+    white-space:nowrap;
+    width: 20%;
+    margin-top: 30rpx;
+    padding: 4rpx;
+    text-align: center;
+    border: 2rpx solid rgba(0, 0, 0, 0.2);
+    border-radius: 6rpx;
+}
+
+.yt {
+    background: url('http://static-o2o.360buyimg.com/daojia/new/images/icon/search_bar_sprites.png');
+    background-repeat: no-repeat;
+    background-size: 88rpx auto;    
+}
+
+.yc {
+    padding: 16rpx;
+    background-position: -20rpx -188rpx;
+    padding-left: 60rpx;
+}
+
+.yf {
+    padding: 16rpx;
+    background-position: -20rpx -98rpx;
+    padding-left: 60rpx;
+}
+
+.search_page .search_content .search_history {
+    padding-bottom: 10rpx;
+    margin-top: 30rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+.search_page .search_content .s_history_hd .history_items{
+    margin-top: 20rpx;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    margin-bottom: 40rpx;
+}
+
+
+.search_page .search_content .s_history_hd .history_record {
+    display: block;
+    padding: 20rpx;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.clear_history {
+    position: absolute;
+    display: inline-block;
+    text-align: center;
+    color: #4DCC57;
+    border: 2rpx solid #4DCC57;
+    border-radius: 6rpx;
+    padding: 10rpx 0;
+    left: 50%;
+    transform: translateX(-50%);
+}

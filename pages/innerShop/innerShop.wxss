@@ -1,0 +1,265 @@
+/* pages/innerShop/innerShop.wxss */
+@import '../../template/searchBar/searchBar.wxss';
+@import '../../template/menu/menu.wxss';
+@import './cart.wxss';
+
+.innerShop {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    height: 100vh;
+    /* overflow: hidden; */
+}
+
+.shop_head {
+    border-bottom: 1px solid #F4F4F4;
+}
+
+.innerShop .shop_hd {
+    background-color: #4DCC57;
+    display: flex;
+    display: -webkit-flex;
+    padding: 10rpx;
+    color: #fff;
+}
+
+.innerShop .shop_hd .hd_shop_img {
+    margin: 0 20rpx;
+    /* z-index: ; */
+}
+
+.innerShop .shop_hd .hd_shop_img image {
+    width: 110rpx;
+    height: 110rpx;
+    border: 1px solid #fff;
+    border-radius: 8rpx;
+    background-color: #fff;
+}
+._bd {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    flex: 1;
+}
+.innerShop .shop_hd .bd_shop_name {
+    margin: 10rpx 0;
+    display: inline-block;
+    font-size: 28rpx;
+    letter-spacing: 4rpx;
+    padding-bottom: 6rpx;
+}
+
+.innerShop .shop_hd .bd_shop_deliver {
+    display: block;
+    font-size: 20rpx;
+}
+
+.innerShop .shop_hd .bd_shop_deliver .deliver {
+    display: inline-block;
+    border: 1px solid #fff;
+    border-radius: 6rpx;
+    padding: 0 4rpx;
+    margin-right: 10rpx;
+    height: 26rpx;
+    line-height: 26rpx;
+}
+
+.innerShop .shop_hd .bd_shop_deliver .deliver_price{
+    display: inline-block;
+    padding-left: 30rpx;
+    position: relative;
+}
+
+.innerShop .shop_hd .bd_shop_deliver .deliver_price .basePrice::before {
+    content: "";
+    width: 2rpx;
+    height: 20rpx;
+    background-color: #fff;
+    position: absolute;
+    left: 8%;
+    top: 6rpx;
+}
+
+.innerShop .shop_hd .unfollowed {
+    background: url('http://static-o2o.360buyimg.com/daojia/new/images/store/focus.png');
+    background-repeat: no-repeat;
+    width: 60rpx;
+    height: 44rpx;
+    background-position: 0 4rpx;
+    background-size: 120rpx auto;
+}
+.innerShop .shop_hd .followed {
+    background-position: 0 -74rpx;
+}
+.shop_bd {
+    box-sizing: border-box;
+    flex: auto;
+    overflow: auto;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+}
+.shop_menu {
+    overflow: auto;
+}
+.bd_right {
+    flex: 1;
+}
+.cart {
+    position: relative;
+}
+
+.shop_ft {
+    width: 100%;
+    height: 100rpx;
+    display: flex;
+    background-color: #fff;
+}
+
+.shop_car {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    flex: 1;
+    z-index: 999;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.car-icon_empty{
+    position: absolute;
+    left: 0;
+    bottom: 4rpx;
+    width: 154rpx;
+    height: 122rpx;
+    /* background: url('http://static-o2o.360buyimg.com/daojia/new/images/minicart/cart.png') 26rpx 0 no-repeat; */
+    background: url('http://static-o2o.360buyimg.com/daojia/new/images/minicart/cart.png') 40rpx 20rpx no-repeat;
+    /* background-size: 154rpx 380rpx; */
+    background-size: 124rpx 300rpx;
+    transition: transform 0.5s ease-out 0s;
+}
+
+.car-icon_fill {
+    position:absolute;
+    background:url('http://static-o2o.360buyimg.com/daojia/new/images/minicart/cart.png') 0rpx -170rpx no-repeat;
+    top:-20px;
+    bottom:4rpx;
+    width:130rpx;
+    height:131rpx;
+    background-size:126rpx 300rpx;
+    transition:transform 0.5s ease-out 0s;
+    left: 24rpx;    
+
+}
+
+.car_status {
+    margin-left: 160rpx;
+    font-size: 32rpx;
+    color: #BEBEBE;
+    letter-spacing: 2rpx;
+    flex: 1;
+    height: auto;
+}
+
+.pay {
+    background-color: #BEBEBE;
+    width: 230rpx;
+    height: auto;
+    position: relative;
+}
+
+.pay text{
+    color: #fff;
+    font-size: 32rpx;
+    height: auto;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+} 
+
+.weui-badge {
+    display:inline-block;
+    padding:.15em .44em;
+    min-width:18rpx;
+    min-height: 18rpx;
+    border-radius:50%;
+    background-color:#F43530;
+    color:#FFFFFF;
+    right: 0.2em;
+    top: -0.4em;
+    line-height:1.2;
+    text-align:center;
+    font-size:28rpx;
+    vertical-align:middle;
+}
+
+.activity {
+    height: 200rpx;
+    border: 1px solid #F43530;
+}
+
+.details {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    position: relative;
+    margin: 20rpx;
+    justify-content: space-between;
+}
+.details image{
+    border: 1px solid #fff;
+    border-radius: 5px;
+}
+.details .cate_left {
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    /* width: 360rpx; */
+    padding: 20rpx 20rpx 0 0;
+}
+
+.details .cate_right {
+    flex: 2;
+}
+.cate-detail .title text{
+    font-size: 28rpx;
+    letter-spacing: 2rpx;
+    /* white-space: nowrap; */
+}
+.cate-detail .sale_status {
+    font-size: 24rpx;
+    color: rgba(0, 0, 0, 0.5);
+}
+.cate-detail .d_price {
+    display: inline-block;
+    background-color: #FFCE0B;
+    color: #fff;
+    font-size: 24rpx;
+    border-radius: 2px; 
+}
+.price .cur_price {
+    color: red;
+    font-size: 30rpx;
+    margin-right: 20rpx;
+}
+.price .pre_price {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 24rpx;
+    text-decoration: line-through;
+}
+.add_car {
+    position: absolute;
+    right: 0;bottom: 0;
+    display: block;
+    width: 50rpx;
+    height: 50rpx;
+    line-height: 50rpx;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    color: #4DCC57;
+    font-weight: bold;
+}

@@ -1,0 +1,14 @@
+<template name="menu">
+    <view class="section menu">
+        <!-- <text>{{scrollHeight}}</text> -->
+        <scroll-view scroll-y style="height: auto;">
+            <view class="menu-box">
+                <block wx:for="{{menu}}" wx:key="index">
+                    <view class="one-menu {{curIndex===index?'on':''}}" bindtap="switchCategory" data-index="{{index}}" data-id="{{item.title}}">
+                        <text class="{{item.title}}" data-id="{{index}}">{{item.desc}}</text>
+                    </view>
+                </block>
+            </view>
+        </scroll-view>
+    </view>
+</template>

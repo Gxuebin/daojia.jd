@@ -1,0 +1,32 @@
+<import src="../../template/searchBar/searchBar.wxml" />
+
+<view class="search_page">
+    <form bindsubmit="formSubmit">
+        <template is="searchBar" data="{{...search}}"></template>
+    </form>
+    <view class="search_content">
+        <view class="hot_search">
+            <view class="hot_search_hd">
+                <text class="yt yc">热门搜索</text>
+            </view>
+            <view class="hot_items">
+                <block wx:for="{{hotItems}}" wx:key="index">
+                    <view class="hot" catchtap="add_search" data-index="{{index}}">{{item}}</view>
+                </block>
+            </view>
+        </view>
+        <view class="search_history">
+            <view class="s_history_hd">
+                <text class="yf yt">搜索历史</text>
+                <view class="history_items">
+                    <block wx:for="{{history_record}}" wx:key="index">
+                        <view class="history_record">{{item}}</view>
+                    </block>
+                </view>
+            </view>
+            <view class="s_history_clear" style="display: {{history_record.length==0?'none':''}};">
+                <input class="clear_history" catchtap="clear_history" type="button" disabled="disabled" value="清除搜索历史" />
+            </view>
+        </view>
+    </view>
+</view>

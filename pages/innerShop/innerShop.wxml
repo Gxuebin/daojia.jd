@@ -1,0 +1,123 @@
+<import src="../../template/searchBar/searchBar.wxml" />
+<import src="../../template/menu/menu.wxml" />
+<view class="innerShop">
+    <view class="shop_head">
+        <block wx:for="{{shopInfo}}" wx:key="index">
+            <view class="shop_hd">
+                <view class="hd_shop_img">
+                    <image src="{{item.image}}" />
+                </view>
+                <view class="_bd">
+                    <view class="bd_shop_name">{{item.name}}</view>
+                    <view class="bd_shop_deliver">
+                        <view class="deliver">
+                            <text class="deliverMethod">{{item.deliver_method}}</text>
+                            -
+                            <text class="deliverTime">{{item.deliver_time}}</text>
+                        </view>
+                        <view class="deliver_price">
+                            <view class="basePrice">{{item.deliverMsg.basePrice}}</view>
+                        </view>
+                    </view>
+                </view>
+                <view class="unfollowed {{ item.followed?'followed':''}}" catchtap="followed" data-id="{{item.id}}">
+                </view>
+            </view>
+        </block>
+        <view class="inner_search">
+            <template is="searchBar" data="{{...search}}"></template>
+        </view>
+    </view>
+
+    <view class="shop_bd">
+        <view class="shop_menu">
+            <template is="menu" data="{{...menuList}}"></template>
+        </view>
+        <view class="shop_menu bd_right">
+            <scroll-view scroll-y scroll-into-view="{{toView}}" scroll-with-animation="true">
+                <block wx:for="{{details}}" wx:key="{{item.id}}" id="{{item.id}}">
+                    <block wx:for="{{item.desc}}" wx:for-item="one" wx:key="index">
+                        <view class="details">
+                            <view class="cate-img cate_left">
+                                <image src="{{one.image}}" style="width: 140rpx; height: 140rpx;"></image>
+                            </view>
+                            <view class="cate-detail cate_right">
+                                <view class="title"><text>{{one.title}}</text></view>
+                                <view class="sale_status">
+                                    <text>月售{{one.sale_month}}件 </text>|
+                                    <text>{{one.score}}</text>
+                                </view>
+                                <view class="d_price" style="{{one.activity=='秒杀'?'background-color: red':''}};">{{one.activity}}</view>
+                                <view class="price">
+                                    <text class="cur_price">￥{{one.cur_price}}</text>
+                                    <text class="pre_price" style="display: {{one.pre_price?'':'none'}}">{{one.pre_price}}</text>
+                                </view>
+                            </view>
+                            <view class="add_car" data-id="{{one.id}}" catchtap="addCart"><text> + </text></view>
+                        </view>
+                    </block>
+                </block>
+            </scroll-view>
+        </view>
+    </view>
+
+    <view class="{{clicked?'weui-mask':'weui-mask-on'}}" catchtap="hideMask"></view>
+
+    <view class="weui-actionSheet {{clicked?'weui-actionsheet_toggle':''}}">
+        <view class="cart-header">
+            <icon class="total-select" type="{{selectAllStatus?'success':'circle'}}" color="#4DCC57" bindtap="selectAll" />
+            <text>{{selectAllStatus?'全选':'全不选'}}</text>
+            <text class="cart-total-num"> (已选{{shopCar.length}}件)</text>
+            <text class="clear_cart" catchtap="cleaCart">清空购物车</text>
+        </view>
+        <scroll-view scroll-y style="width: 100%; height: 700rpx;">
+            <view class="weui-actionSheet__menu" style="width: 100%;">
+                <block wx:for="{{shopCar}}" wx:key="{{index}}">
+                    <view class="weui-actionsheet__cell cart-list">
+                        <view class="list-left">
+                            <icon class="cart-pro-select" type="{{item.selected?'success':'circle'}}" color="#4DCC57" bindtap="selectList" data-index="{{index}}"
+                            />
+                            <navigator>
+                                <image class="cart-thumb" src="{{item.image}}" />
+                            </navigator>
+                        </view>
+                        <view class="list-right">
+                            <text class="cart-pro-name">{{item.title}}</text>
+                            <view class="d_price" style="{{item.activity=='秒杀'?'background-color: red':''}};">{{item.activity}}</view>
+                            <view class="cart-pro-price">
+                                <text style="color: red;">￥{{item.cur_price}}</text>
+                                <text class="pre_price" style="display: {{item.pre_price?'':'none'}}">{{item.pre_price}}</text>
+                            </view>
+                            
+                            <view class="cart-count-box">
+                                <text class="cart-count-down" bindtap="minusCount" data-index="{{index}}"></text>
+                                <text class="cart-count-num">{{item.num}}</text>
+                                <text class="cart-count-add" bindtap="addCount" data-index="{{index}}"></text>
+                            </view>
+                        </view>
+                    </view>
+                </block>
+            </view>
+        </scroll-view>
+    </view>
+
+    <!-- </view> -->
+
+    <view class="cart" style="margin-top: 0;">
+        <view class="shop_ft" style="z-index: -999;">
+            <view class="weui-cell shop_car">
+                <view class="weui-cell__hd {{shopCar.length==0?'car-icon_empty':'car-icon_fill'}}" catchtap="{{shopCar.length==0?'':'showCart'}}">
+                    <view class="weui-badge" style="position: absolute; display: {{shopCar.length==0?'none':''}}">{{shopCar.length}}</view>
+                </view>
+                <view class="weui-cell__bd car_status" style="{{shopCar.length==0?'':'color: red;'}}">
+                    <text>{{shopCar.length==0?'购物车是空的':car_status}}</text>
+                </view>
+
+            </view>
+            <view class="weui-cell__ft pay" style="{{shopCar.length==0?'':'background: #4DCC57'}}">
+                <text>去结算</text>
+            </view>
+        </view>
+
+    </view>
+</view>
