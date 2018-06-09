@@ -1,0 +1,40 @@
+page,.main {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100%;
+    background: #fff;
+}
+
+.category-left {
+    width: 160rpx;
+    box-sizing: border-box;
+    flex: auto;
+}
+
+.cate-list {
+    background-color: #F4F4F4;
+    font-size: 28rpx;
+    text-align: center;
+    padding: 30rpx 20rpx;
+    white-space: nowrap;
+}
+
+.category-left .cate-list.on {
+    background: #fff;
+    border-left: 2px solid #4DCC57;
+}
+
+.category-right {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: auto;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    color: transparent;
+}

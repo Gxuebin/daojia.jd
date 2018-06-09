@@ -4,15 +4,86 @@
             <view class="weui-search-bar__form">
                 <view class="weui-search-bar__box">
                     <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-                    <input type="text" class="weui-search-bar__input" placeholder="{{placeholder}}" value="{{inputVal}}" focus="{{true}}" bindinput="inputTyping" />
-                    <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+                    <input type="text" class="weui-search-bar__input" placeholder="{{placeholder}}" value="{{inputVal}}" bindinput="inputTyping"
+                    />
+                    <view class="weui-icon-clear" wx:if="{{hasItems}}" bindtap="clearInput">
                         <icon type="clear" size="14"></icon>
                     </view>
                 </view>
             </view>
             <view class="weui-search-bar__btn">
-                <text class="weui-search-bar__text" catchtap="DoSearch">搜索</text>
+                <text class="weui-search-bar__text" catchtap="doSearch">搜索</text>
             </view>
+        </view>
+        <view class="weui-cells searchbar-result shoplist" style="display: {{inputVal.length?'':'none'}};">
+            <block wx:for="{{resList}}">
+                <view class="weui-cell__bd">
+                    <navigator hover-class="none" url="../innerShop/innerShop?id={{item.id}}">
+                        <view class="shop">
+                            <view class="shopImg">
+                                <image src="{{item.image}}" />
+                            </view>
+                            <view class="shopMsg">
+                                <view class="shopName">{{item.name}}</view>
+                                <view class="deliver" style="{{item.deliver_method == '达达专送'?'color: #16A9FF; border-color: #16A9FF;':''}}">
+                                    <text class="deliverMethod">{{item.deliver_method}}</text>
+                                    -
+                                    <text class="deliverTime">{{item.deliver_time}}</text>
+                                </view>
+                                <view class="saleStatus">
+                                    <view class="showStars">
+                                        <block wx:for="{{item.star_on}}" wx:key="id">
+                                            <image src="../../assets/images/star_on.png" style="width: 24rpx; height: 24rpx;" />
+                                        </block>
+                                        <block wx:for="{{item.star_half}}" wx:key="id">
+                                            <image src="../../assets/images/star_half.png" style="width: 24rpx; height: 24rpx;" />
+                                        </block>
+                                        <block wx:for="{{item.star_off}}" wx:key="index">
+                                            <image src="../../assets/images/star_off.png" style="width: 24rpx; height: 24rpx;" />
+                                        </block>
+                                    </view>
+                                    <text class="sale2month">月售{{item.sale_month}}单</text>
+                                </view>
+                                <view class="deliverMsg">
+                                    <text>{{item.deliverMsg.deprice}}，距离{{item.deliverMsg.distance}}，{{item.deliverMsg.basePrice==0?'':item.deliverMsg.basePrice}}{{item.deliverMsg.basePrice==0?'免':'元'}}基础运费</text>
+                                </view>
+                                <view class="activities" style="display: {{item.noactivity?'none':''}};">
+                                    <view class="more_activity {{item.hasMoreActivity?'_rotate':''}}" style="display:{{item.activities.length>2?'':'none'}}"
+                                        catchtap="show_more" data-index="{{item.id}}"></view>
+                                    <block wx:for="{{item.activities}}" wx:for-item="activity" wx:key="{{index}}">
+                                        <view class="activity" style="display:{{index>1&&!item.hasMoreActivity?'none':''}}">
+                                            <text class="{{activity.name}}">{{activity.title}}</text>
+                                            {{activity.desc}}
+                                        </view>
+                                    </block>
+                                </view>
+                            </view>
+                        </view>
+                        <block wx:for="{{desc}}" wx:for-item="one" wx:key="index">
+                            <view class="details">
+                                <view class="block"></view>
+                                <view class="cate-img cate_left">
+                                    <image src="{{one.image}}" style="width: 140rpx; height: 140rpx;"></image>
+                                </view>
+                                <view class="cate-detail cate_right">
+                                    <view class="title">
+                                        <text>{{one.title}}</text>
+                                    </view>
+                                    <view class="sale_status">
+                                        <text>月售{{one.sale_month}}件 </text>|
+                                        <text>{{one.score}}</text>
+                                    </view>
+                                    <view class="d_price" style="{{one.activity=='秒杀'?'background-color: red':''}};">{{one.activity}}</view>
+                                    <view class="price">
+                                        <text class="cur_price">￥{{one.cur_price}}</text>
+                                        <text class="pre_price" style="display: {{one.pre_price?'':'none'}}">{{one.pre_price}}</text>
+                                    </view>
+                                </view>
+                            </view>
+                        </block>
+                    </navigator>
+                </view>
+            </block>
         </view>
     </view>
 </template>

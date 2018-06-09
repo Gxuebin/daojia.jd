@@ -1,0 +1,31 @@
+<template name="categories">
+    <view class="main">
+        <scroll-view scroll-y class="category-left">
+            <view wx:for="{{menu}}" wx:key="{{item.id}}" data-id="{{item.id}}" data-index="{{index}}" bindtap="switchCategory" class="cate-list {{curIndex===index?'on':''}}">
+                <text class="{{item.title}}" data-index="{{index}}">{{item.desc}}</text>
+            </view>
+        </scroll-view>
+        <scroll-view class="category-right" scroll-y scroll-into-view="{{toView}}" scroll-with-animation="true">
+            <block wx:for="1" wx:key="{{item.id}}">
+                <view wx:for="{{item.detail}}" wx:for-item="one" class="cate-box">
+                    <view class="cate-img cate_left">
+                        <image src="{{one.image}}"></image>
+                    </view>
+                    <view class="cate-deail cate_right">
+                        <view class="title">{{one.title}}</view>
+                        <view class="sale_status">
+                            <text>{{one.sale_month}}</text>
+                            <text>{{one.score}}</text>
+                        </view>
+                        <view class="d_price">{{one.activity}}</view>
+                        <view class="price">
+                            <text class="cur_price">{{one.cur_price}}</text>
+                            <text class="pre_price" style="display: {{one.pre_price?'':'none'}}">{{one.pre_price}}</text>
+                        </view>
+                    </view>
+                    <view class="add_car">+</view>
+                </view>
+            </block>
+        </scroll-view>
+    </view>
+</template>
