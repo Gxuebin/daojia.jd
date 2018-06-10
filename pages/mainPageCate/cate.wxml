@@ -1,0 +1,60 @@
+<view class="main">
+    <view class="cate-head">
+        <view class="hd_img"></view>
+    </view>
+    <view class="nearShop">
+        <text>附近的商家</text>
+    </view>
+    <view class="content">
+        <view class="shoplist">
+            <!-- <view wx:if="{{}}"></view> -->
+            <block wx:for="{{shopInfo}}" wx:key="index">
+                <navigator class="shop" hover-class="none" url="../innerShop/innerShop?id={{item.id}}">
+                    <view class="shopImg">
+                        <image src="{{item.image}}" />
+                    </view>
+                    <view class="shopMsg">
+                        <view class="shopName">{{item.name}}</view>
+                        <view class="deliver" style="{{item.deliver_method == '达达专送'?'color: #16A9FF; border-color: #16A9FF;':''}}">
+                            <text class="deliverMethod">{{item.deliver_method}}</text>
+                            -
+                            <text class="deliverTime">{{item.deliver_time}}</text>
+                        </view>
+                        <view class="saleStatus">
+                            <view class="showStars">
+                                <block wx:for="{{item.star_on}}" wx:key="id">
+                                    <image src="../../assets/images/star_on.png" style="width: 24rpx; height: 24rpx;" />
+                                </block>
+                                <block wx:for="{{item.star_half}}" wx:key="id">
+                                    <image src="../../assets/images/star_half.png" style="width: 24rpx; height: 24rpx;" />
+                                </block>
+                                <block wx:for="{{item.star_off}}" wx:key="index">
+                                    <image src="../../assets/images/star_off.png" style="width: 24rpx; height: 24rpx;" />
+                                </block>
+                            </view>
+                            <text class="sale2month">月售{{item.sale_month}}单</text>
+                        </view>
+                        <view class="deliverMsg">
+                            <text>{{item.deliverMsg.deprice}}，距离{{item.deliverMsg.distance}}，{{item.deliverMsg.basePrice}}</text>
+                        </view>
+                        <view class="activities" style="display: {{item.noactivity?'none':''}};">
+                            <view class="more_activity {{item.hasMoreActivity?'_rotate':''}}" style="display:{{item.activities.length>2?'':'none'}}"
+                                catchtap="show_more" data-index="{{item.id}}"></view>
+                            <block wx:for="{{item.activities}}" wx:for-item="activity" wx:key="{{index}}">
+                                <view class="activity" style="display:{{index>1&&!item.hasMoreActivity?'none':''}}">
+                                    <text class="{{activity.name}}">{{activity.title}}</text>
+                                    {{activity.desc}}
+                                </view>
+                            </block>
+                        </view>
+                    </view>
+                </navigator>
+
+            </block>
+        </view>
+    </view>
+    <!-- end -->
+    <view class="noMoreShop">
+        <text>没有更多商家啦</text>
+    </view>
+</view>

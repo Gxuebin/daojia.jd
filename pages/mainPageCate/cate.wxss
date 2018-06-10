@@ -1,0 +1,9 @@
+@import '../index/index.wxss';
+
+
+.cate-head .hd_img {
+    background: url(https://static-o2o.360buyimg.com/activity/daojiaImg/banner_bg.jpg) no-repeat center;
+    width: 100vw;
+    height: 360rpx;
+    background-size: contain;
+}
