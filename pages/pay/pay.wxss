@@ -1,0 +1,102 @@
+@import '../../weui.wxss';
+
+.page {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.pay {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #F2F2F2;
+}
+
+.pay-header {
+    margin: 0 5px;
+    background: #fff url(//static-o2o.360buyimg.com/daojia/new/images/cashier/cashier_bot_bg.png) repeat-x bottom center;
+    background-size: 100% auto;
+    padding-bottom: 8px;
+    margin-bottom: 40rpx;
+}
+
+.pay-hd_time {
+    text-align: center;
+    padding: 40rpx;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+}
+
+.time-text {
+    font-size: 26rpx;
+}
+
+.count-down {
+    font-size: 60rpx;
+    font-family: "Arial";
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.8)
+}
+
+.pay-hd_info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20rpx;
+}
+
+.shopName {
+    font-size: 28rpx;
+}
+
+.price {
+    font-size: 32rpx;
+    color: red;
+}
+
+.pay-container {
+    flex: 1;
+}
+
+.pay-title_payWay {
+    font-size: 26rpx;
+    margin-left: 20rpx;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.pay-way_radio {
+    background-color: #fff;
+    margin: 30rpx 10rpx;
+    border: none;
+}
+
+.pay-ways {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    vertical-align: middle;
+    align-items: center;
+}
+.pay-way_label {
+    height: 60rpx;
+}
+.pay-img {
+    overflow: hidden;
+    height: 40rpx;
+    line-height: 40rpx;
+}
+.pay-img image{
+    display: inline-block;
+    width: 44rpx;
+    height: 40rpx;
+}
+
+.pay-text {
+    font-size: 28rpx;
+    margin-left: 20rpx;
+}
+
+.pay-confirm_btn button {
+    font-size: 32rpx;
+}

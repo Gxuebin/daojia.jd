@@ -1,0 +1,37 @@
+<view class="page pay">
+    <view class="pay-header">
+        <view class="pay-hd_time">
+            <view class="time-text">剩余支付时间</view>
+            <view class="count-down">{{minutes}}:{{seconds}}</view>
+        </view>
+        <view class="pay-hd_info">
+            <view class="shopName">{{shopName}}</view>
+            <view class="price">￥{{price}}</view>
+        </view>
+    </view>
+    <view class="pay-container">
+        <view class="pay-title_payWay">请选择支付方式</view>
+        <view class="pay-way_radio">
+            <radio-group bindchange="radioChange">
+                <label class="weui-cell weui-check__label pay-way_label" wx:for="{{radioItems}}" wx:key="value">
+                    <radio class="weui-check pay-ways" value="{{item.value}}" checked="{{item.checked}}" />
+                    <view class="weui-cell__hd pay-img">
+                        <image src="{{item.icon}}"></image>
+                    </view>
+                    <view class="weui-cell__bd pay-text">{{item.name}}</view>
+                    <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
+                        <icon class="weui-icon-radio" type="success" size="20"></icon>
+                    </view>
+                </label>
+            </radio-group>
+        </view>
+    </view>
+    <view class="pay-footer">
+        <view class="pay-confirm_btn">
+            <button class="weui-btn" type="primary" catchtap="confirmPay">
+                <text>确认支付</text>
+                <text>￥{{price}}</text>
+            </button>
+        </view>
+    </view>
+</view>
