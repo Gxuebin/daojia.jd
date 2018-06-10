@@ -28,4 +28,5 @@
             </block>
         </scroll-view>
     </view>
+    
 </template>
