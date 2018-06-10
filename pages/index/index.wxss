@@ -36,7 +36,7 @@
   display: inline;
 }
 
-.main .header .location .par::after{
+.main .header .location .par text::after{
   content: '';  
   position: absolute;  
   border-left: 8rpx solid rgba(0, 0, 0, 0);  
@@ -44,7 +44,7 @@
   border-bottom: 8rpx solid rgba(0, 0, 0, 0);  
   border-right: 8rpx solid rgba(0, 0, 0, 0);
   top: 45%;
-  right: 0;
+  margin-left: 10rpx;
 }
 
 .main .header .message {
@@ -129,14 +129,14 @@
   transform-origin: 0 0;
 }
 
-.content .shop{
+.shop{
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding: 30rpx 0;
   display: flex;
   flex-direction: row;
 }
 
-.content .shop .shopImg image {
+.shop .shopImg image {
   width: 120rpx;
   height: 120rpx;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -144,13 +144,13 @@
   margin: 0 20rpx;
 }
 
-.content .shop .shopMsg {
+.shop .shopMsg {
   flex: 1;
   color: rgba(0, 0, 0, 0.6);
   font-size: 22rpx;
 }
 
-.content .shop .shopMsg .shopName {
+.shop .shopMsg .shopName {
   font-size: 32rpx;
   font-weight: bold;
   color: #000;
@@ -161,7 +161,7 @@
   text-overflow: ellipsis;
 }
 
-.content .shop .shopMsg .deliver {
+.shop .shopMsg .deliver {
   display: inline-block;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6rpx;
@@ -170,25 +170,25 @@
   height: 30rpx;
 }
 
-.content .shop .shopMsg .deliver text {
+.shop .shopMsg .deliver text {
   margin: 0 10rpx;
 }
 
-.content .shop .shopMsg .saleStatus {
+.shop .shopMsg .saleStatus {
   padding: 10rpx 0; 
 }
 
-.content .shop .shopMsg .saleStatus .showStars image{
+.shop .shopMsg .saleStatus .showStars image{
    float: left;
    margin-top: 2rpx;
 }
 
-.content .shop .shopMsg .saleStatus .sale2month {
+.shop .shopMsg .saleStatus .sale2month {
   margin-left: 30rpx;
   position: relative;
 }
 
-.content .shop .shopMsg .saleStatus .sale2month::before {
+.shop .shopMsg .saleStatus .sale2month::before {
   content: "";
   width: 4rpx;
   height: 20rpx;
@@ -200,42 +200,42 @@
   margin-top: -10rpx;
 }
 
-.content .shop .shopMsg .deliverMsg,.activities>.activity{
+.shop .shopMsg .deliverMsg,.activities>.activity{
   max-width: 500rpx;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.content .shop .shopMsg .activities{
+.shop .shopMsg .activities{
   border-top: 1px dotted rgba(0, 0, 0, 0.2);
   margin-top: 16rpx;
   position: relative;
 }
-.content .shop .shopMsg .activities .activity {
+.shop .shopMsg .activities .activity {
   padding-top: 16rpx;
 }
-.content .shop .shopMsg .activities .activity text {
+.shop .shopMsg .activities .activity text {
   border-radius: 6rpx;
   color: #fff;
   padding: 0 2rpx;
 }
-.content .shop .shopMsg .activities .activity .coupon,.firstOrder {
+.shop .shopMsg .activities .activity .coupon,.firstOrder {
   background-color: #FF6C57;
 }
 
-.content .shop .shopMsg .activities .activity .purchaseOff {
+.shop .shopMsg .activities .activity .purchaseOff {
   background-color: #5FBC65;
 }
 
-.content .shop .shopMsg .activities .activity .fright {
+.shop .shopMsg .activities .activity .fright {
   background-color: #5CA7FF;
 }
 
-.content .shop .shopMsg .activities .activity .packout {
+.shop .shopMsg .activities .activity .packout {
   background-color: #FF6A00;
 }
-.content .shop .shopMsg .activities .more_activity {
+.shop .shopMsg .activities .more_activity {
   width: 12rpx;
   height: 12rpx;
   border-top: 2rpx solid rgba(0, 0, 0, 0.6);
@@ -246,7 +246,7 @@
   top: 16rpx;
 }
 
-.content .shop .shopMsg .activities ._rotate {
+.shop .shopMsg .activities ._rotate {
   transform: rotateZ(45deg);
   top: 24rpx;
 }
