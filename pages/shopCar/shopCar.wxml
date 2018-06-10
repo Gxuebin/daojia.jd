@@ -1,0 +1,37 @@
+<view class="main">
+    <!-- <view class="cart-header">
+        <icon class="total-select" type="{{selectAllStatus?'success':'circle'}}" color="#4DCC57" bindtap="selectAll" />
+        <text>{{selectAllStatus?'全选':'全不选'}}</text>
+        <text class="cart-total-num"> (已选{{shopCar.length}}件)</text>
+        <text class="clear_cart" catchtap="cleaCart">清空购物车</text>
+    </view> -->
+    <view class="shopCar">
+        <block wx:if="{{shopCar.length!=0}}">
+            <block wx:for="{{shopCar}}" wx:key="{{index}}">
+                <view class="shop-car_card">
+                    <navigator url="../innerShop/innerShop?id=1" hover-class="none">
+                        <view class="weui-cell card-header_shopName">
+                            <text class="shopName weui-cell__bd">{{item.name}}</text>
+                            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                        </view>
+                        <view class="weui-cell__bd card-body_goods">
+                            <block wx:for="{{item.list}}" wx:for-item="goods">
+                                <view class="goods-item">
+                                    <image class="item-image" src="{{goods.image}}" />
+                                    <view class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">{{goods.num}}</view>
+                                    <text class="item-price">￥{{goods.cur_price}}</text>
+                                </view>
+                            </block>
+                        </view>
+                    </navigator>
+                </view>
+            </block>
+        </block>
+        <view wx:else class="empty_img">
+            <view class="prompt">
+                <view class="emptyCar">购物车空空如也</view>
+                <button class="weui-btn navToMain" type="default" catchtap="navToMain">去首页逛逛</button>
+            </view>
+        </view>
+    </view>
+</view>
