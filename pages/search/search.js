@@ -1,4 +1,5 @@
 // pages/search/search.js
+const app = getApp()
 Page({
 
 	/**
@@ -6,13 +7,15 @@ Page({
 	 */
 	data: {
 		hotItems: [
-			'蛋糕', '阿莫西林', '酸菜', '满天星', '维生素', '感冒', '辣椒', '火锅底料', '黄体酮', '百合', '鸡蛋', '百香果'
+			'蛋糕', '西红柿', '酸菜', '满天星', '维生素', '感冒', '辣椒', '火锅底料', '黄体酮', '百合', '鸡蛋', '百香果'
 		],
 		history_record: [],
 		search: {
 			placeholder: '搜索附近的商家商品',
-			inputVal: "",
+			hasItems: false
 		},
+		hasItems: false
+		
 	},
 	clearInput: function () {
 		this.setData({
@@ -26,26 +29,98 @@ Page({
 			search: {
 				inputVal: e.detail.value
 			},
-		});
+			input: e.detail.value,
+		})
+		this.searchItem(e.detail.value)
 	},
-	add_search(e) {
-		console.log(e)
-		const index = e.currentTarget.dataset.index
-		console.log(index)
-		const hotItems = this.data.hotItems
-		const item = hotItems[index]
+	searchItem(keyWords) {
+		const goods = app.globalData.details
+		const shops = app.globalData.shopInfo
+		let temp = []
+		goods.forEach(item => {
+			item.desc.forEach(ele => {
+				temp.push(ele)
+			})			
+		})
+		const cur = []
+		const desc = new Set()
+		const key = keyWords ? keyWords.split('') : []
+		temp.forEach(ele => {
+			key.forEach(k => {
+				let i = ele.title.indexOf(k)
+				if (i > -1) {
+					cur.push(ele.id)
+					desc.add(ele)
+				}
+			})
+		})
+		const list = []
+		shops.forEach(item => {
+			cur.forEach(i => {
+				if (item.goodslist.indexOf(i) > -1) {
+					list.push(item)
+				}
+			})
+		})
+
+		var resList = Array.from(new Set([...list]))
 		this.setData({
 			search: {
-				inputVal: item
+				resList,
+				desc: Array.from(desc)
+			},
+		})
+		if (this.data.search.resList.length>0) {
+			this.setData({
+				hasItems: true,
+				search: {
+					resList,
+					desc: Array.from(desc),
+					hasItems: true,
+				},
+			})
+		} else {
+			this.setData({
+				hasItems: false,
+				search: {
+					hasItems: false,
+				},
+			})
+		}
+	},
+	add_search(e) {
+		const index = e.currentTarget.dataset.index
+		this.setData({
+			search: {
+				inputVal: index,
+			},
+			input: index,
+		})
+		this.searchItem(index)
+	},
+	showAll() {
+		const shops = app.globalData.shopInfo
+		this.setData({
+			hasItems: true,
+			search: {
+				resList: shops,
+				hasItems: true,
 			},
 		})
 	},
-	DoSearch() {
+	doSearch() {
+		if (!this.data.search.resList || this.data.search.resList.length<0) {
+			this.showAll()
+		}
+		const history = wx.getStorageSync('history')
+		let rec = this.data.input	
+		wx.setStorageSync('history', [rec, ...history])
 		this.setData({
-			history_record: [this.data.search.inputVal, ...this.data.history_record]
+			history_record: [rec, ...history]
 		})
 	},
 	clear_history() {
+		wx.setStorageSync('history', [])
 		this.setData({
 			history_record: []
 		})
@@ -55,9 +130,20 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
+		this.setData({
+			search: {
+				inputVal: options.keyWord
+			}
+		})
+		this.searchItem(options.keyWord)
 		wx.setNavigationBarTitle({
 			title: '搜索'
 		})
+		const history = wx.getStorageSync('history')
+		this.setData({
+			history_record: history
+		})
+
 	},
 
 	/**

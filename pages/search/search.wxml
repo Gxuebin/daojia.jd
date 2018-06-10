@@ -1,17 +1,17 @@
 <import src="../../template/searchBar/searchBar.wxml" />
 
-<view class="search_page">
+<view class="search_page" >
     <form bindsubmit="formSubmit">
         <template is="searchBar" data="{{...search}}"></template>
     </form>
-    <view class="search_content">
+    <view class="search_content" style="display: {{hasItems?'none':''}};">
         <view class="hot_search">
             <view class="hot_search_hd">
                 <text class="yt yc">热门搜索</text>
             </view>
             <view class="hot_items">
                 <block wx:for="{{hotItems}}" wx:key="index">
-                    <view class="hot" catchtap="add_search" data-index="{{index}}">{{item}}</view>
+                    <view class="hot" catchtap="add_search" data-index="{{item}}">{{item}}</view>
                 </block>
             </view>
         </view>
