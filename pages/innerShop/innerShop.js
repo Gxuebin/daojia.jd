@@ -18,8 +18,62 @@ Page({
 		toView: 'singleCoupon',
 		shopCar: [],
 		totalPrice: 0,
-		car_status: ''
+		car_status: '',
+		showBall: false,
 
+	},
+	
+	runBall(e) {
+		let bottomX = this.data.screenWidth,
+		bottomY = this.data.screenHeight
+		//实例化一个动画
+		this.animationX = wx.createAnimation({
+			duration: 1000, 
+			timingFunction: 'linear',
+			delay: 0,
+		})
+		this.animationY = wx.createAnimation({
+			duration: 1000, 
+			timingFunction: 'cubic-bezier(.93,-0.11,.85,.74)',
+			delay: 0
+		})
+
+		// x, y表示手指点击横纵坐标, 即小球的起始坐标
+		let ballX = e.detail.x,
+			ballY = e.detail.y
+			console.log(ballX, ballY)
+			this.setData({
+				ballX: ballX - 20,
+				ballY,
+				showBall: true
+			})
+		this.setDelayTime(10).then(() => {
+			this.animationX.translateX(-ballX-ballY*0.5).step()
+			this.animationY.translateY(bottomY).step()
+			this.setData({
+				animationX: this.animationX.export(),
+				animationY: this.animationY.export()
+			})
+			// 400ms延时, 即小球的抛物线时长
+			return this.setDelayTime(1000);
+		}).then(() => {
+			this.animationX.translateX(0).step()
+			this.animationY.translateY(0).step()
+			this.setData({
+				showBall: false,
+				animationX: this.animationX.export(),
+				animationY: this.animationY.export()
+			})
+		})
+		
+			
+	},
+	setDelayTime(sec) {
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve()
+			}, sec)
+		})
 	},
 
 	clearInput: function () {
@@ -53,7 +107,6 @@ Page({
 				return item
 			}
 		})
-		console.log(curMenu)
 		this.setData({
 			shopInfo: curShop,
 			menuList: { ...curMenu[0] },
@@ -63,7 +116,6 @@ Page({
 		wx.setNavigationBarTitle({
 			title: name
 		})
-		console.log(this.data.menuList)
 	},
 	/**
 	 * 生命周期函数--监听页面加载
@@ -72,25 +124,33 @@ Page({
 	followed(e) {
 		const id = e.currentTarget.dataset.id
 		const followed = this.data.shopInfo[0].followed
-		// console.log(followed)
+		if (!followed) {
+			wx.showToast({
+				title: '关注店铺成功',
+				icon: 'success',
+				duration: 1000
+			})
+		} else {
+			wx.showToast({
+				title: '取消关注',
+				icon: 'success',
+				duration: 1000
+			})
+		}
 		const shopList = app.globalData.shopInfo
 		shopList.forEach(item => {
 			if (item.id == id) {
 				item.followed = !followed
-				// console.log(item.followed)
 				return item
 			}
 		})
 		this.load(id)
 	},
 	switchCategory(e) {
-		console.log(e)
 		let index = e.currentTarget.dataset.index ? e.currentTarget.dataset.index : 0
-		console.log(index)
 		const curList = this.data.menuList
 		curList.curIndex = index
 		let toView = e.currentTarget.dataset.id
-		// console.log(toView)
 		this.setData({
 			menuList: curList,
 			toView: toView ? toView : 'noView'
@@ -102,10 +162,10 @@ Page({
 		let myCart
 		shopCar.forEach(item => {
 			if (item.id == this.data.shop_id) {
+				console.log(item)
 				myCart = item.list
 			}
 		})
-		console.log(myCart)
 		this.setData({
 			clicked: !this.data.clicked,
 			shopCar: myCart
@@ -115,7 +175,6 @@ Page({
 	},
 	showDetails() {
 		const temp = app.globalData.details
-		// console.log(this.data.toView)
 		const details = temp.filter(item => {
 			if (item.id == this.data.toView) {
 				return item
@@ -130,13 +189,13 @@ Page({
 			clicked: false
 		})
 	},
+
 	addCart(e) {
 		const id = e.currentTarget.dataset.id
 		const details = app.globalData.details
 		const menuTitle = this.data.toView
 		const shop_id = this.data.shop_id
-		// console.log(menuTitle)
-		// return
+
 		let temp = details.filter(item => {
 			if (item.id == menuTitle) {
 				return item
@@ -148,143 +207,70 @@ Page({
 			}
 		})
 
-		let num = 0, myCart
-
 		const preCart = wx.getStorageSync('myCart')
 		if (!preCart) {
 			goods[0].num = '1'
 			goods[0].selected = true
-
 			let temp = {
 				id: shop_id,
 				list: goods
 			}
-			// console.log(temp)
-			// return
-			wx.setStorage({
-				key: 'myCart',
-				data: [temp, ...preCart]
-			})
-			console.log('1')
-			this.setData({
-				shopCar: [temp, ...preCart],
-			})
-			// return
+			wx.setStorageSync('myCart', [temp])
 		} else {
-			try {
-				preCart.forEach((item, index) => {
-					let flag
-
-					if (item.id == shop_id) {		// 是否从该店铺添加过
-						console.log(item.list)
-						try {
-							item.list.forEach(ele => {
-								flag = 2
-								// console.log(ele)
-
-								if (ele.id == goods[0].id) { 		// 是否存在相同商品
-									console.log('if')
-									ele.num++
-									ele.selected = true
-									ele.shop_id = shop_id
-									this.addCount(ele.id)
-									// return
-									// console.log(preCart)
-									wx.setStorage({
-										key: 'myCart',
-										data: preCart
-									})
-									console.log('2')
-									this.setData({
-										shopCar: preCart,
-										// shopCar: this.data.shopCar
-									})
-									flag = 1
-									// console.log()
-									foreach.break = new Error("StopIteration")
-								}
-							})
-						} catch (error) {
-							console.log('out of forEach')
-						}
-
-						if (flag == 2) {
-							goods[0].num = '1'
-							goods[0].selected = true
-							item.list = [goods[0], ...item.list]
-							preCart[index] = item
-							// console.log(preCart)
-							wx.setStorage({
-								key: 'myCart',
-								data: preCart
-							})
-							console.log('3')
-							// console.log(myCart)
-							this.setData({
-								shopCar: preCart,
-							})
-							foreach.break = new Error("StopIteration")
-						}
-					} else {
-						goods[0].num = '1'
-						goods[0].selected = true
-
-						let temp = {
-							id: shop_id,
-							list: goods
-						}
-						wx.setStorage({
-							key: 'myCart',
-							data: [temp, ...preCart]
-						})
-						console.log('1')
-						this.setData({
-							shopCar: [temp, ...preCart],
-							// shopCar: this.data.shopCar
-						})
-					}
-
-				})
-			} catch (error) {
-				console.log('用于跳出forEach')
+			let i = preCart.findIndex(item => item.id == shop_id)
+			if (i > -1) {
+				let j = preCart[i].list.findIndex(item => item.id == goods[0].id)
+				if (j > -1) {
+					let temp = preCart[i].list[j]
+					temp.num++
+					temp.selected = true
+					wx.setStorageSync('myCart', preCart)
+				} else {
+					goods[0].num = '1'
+					goods[0].selected = true
+					preCart[i].list.push(goods[0])
+					wx.setStorageSync('myCart', preCart)
+				}
+			} else {
+				goods[0].num = '1'
+				goods[0].selected = true
+				let temp = {
+					id: shop_id,
+					list: goods
+				}
+				preCart.unshift(temp)
+				wx.setStorageSync('myCart', preCart)
 			}
 		}
-
-		this.setData({
-			selectAllStatus: true
+		this.setDelayTime(100).then(() => {
+			this.hasCarList()
+			this.getTotalPrice()
+			this.runBall(e)
 		})
-
-		this.getTotalPrice()
-		console.log('4')
-
+		
 	},
 
 	hasCarList() {
-		const shopCar = wx.getStorageSync('myCart')
-		// console.log(shopCar)
+		let shopCar = wx.getStorageSync('myCart') 
+		shopCar = shopCar ? shopCar : []
 
 		if (shopCar) {
 			let myCart
 			shopCar.forEach(item => {
-				console.log(item)
 				if (item.id == this.data.shop_id) {
-					console.log(item.list)
 					myCart = item.list
 				}
 			})
-			console.log(myCart)
 			this.setData({
 				shopCar: myCart
 			})
 		}
-		// console.log(this.data.shopCar)
 	},
 
 	getTotalPrice() {
 		const carts = this.data.shopCar ? this.data.shopCar : []
 		let total = 0
 		
-		console.log(carts)
 		carts.forEach(item => {
 			if (item.id == this.data.shop_id) {
 				item.list.forEach(ele => {
@@ -299,7 +285,6 @@ Page({
 				total += carts[i].num * carts[i].cur_price
 			}
 		}
-		console.log()
 		this.setData({
 			totalPrice: total.toFixed(2),
 			car_status: `￥${total.toFixed(2)}`
@@ -308,7 +293,6 @@ Page({
 
 	operateNum(index, operation) {
 		const carts = this.data.shopCar
-		// console.log(carts)
 		carts.forEach((item, id) => {
 			if (id == index) {
 				if (operation === '+') {
@@ -321,12 +305,9 @@ Page({
 		return carts
 	},
 	addCount(e) {
-		// console.log(e)
 		let index
 		if (typeof (e) == 'string') {
 			const temp = this.data.shopCar
-			// console.log(temp)
-			// return
 			temp.forEach((item, id) => {
 				if (item.id == this.data.shop_id) {
 					item.list.forEach(ele => {
@@ -381,26 +362,20 @@ Page({
 	},
 	selectList(e) {
 		const index = e.currentTarget.dataset.index
-		// console.log(index)
 		const carts = this.data.shopCar
-		console.log(carts)
 		let selected = carts[index].selected
 		carts[index].selected = !selected
-		// console.log(carts[index].selected)
 		this.setData({
 			shopCar: carts
 		})
-		// console.log(this.data.shopCar)
-		// console.log(this.isAllSelected())
 		let selectAllStatus = this.isAllSelected() ? true : false
-		// console.log(selectAllStatus)
 		this.setData({
 			selectAllStatus,
 		})
 		this.getTotalPrice()
 
 	},
-	cleaCart() {
+	clearCart() {
 		wx.showModal({
 			title: '提示',
 			content: '确定要清空购物车吗？？？',
@@ -418,21 +393,63 @@ Page({
 		})
 
 	},
+	checkCart() {
+		const carts = this.data.shopCar
+		let arr = []
+		carts.forEach((item, index) => {
+			if (!item.selected) {
+				arr.push(item.id)
+			}
+		})
+		for (const i of arr) {
+			this.selectCart(i)
+		}
+	},
+	selectCart(id) {
+		const shopCar = wx.getStorageSync('myCart')
+		const shop_id = this.data.shop_id
+		shopCar.forEach(item => {
+			if (item.id == shop_id) {
+				console.log(item.list)
+				item.list.forEach((ele, index) => {
+					if (ele.id == id) {
+						item.list.splice(index, 1)
+					}
+				})
+			}
+		})
+		wx.setStorage({
+			key: 'myCart',
+			data: shopCar
+		})
+	},
+	submitOrder() {
+		this.checkCart()
+		const shop_id = this.data.shop_id
+		wx.navigateTo({
+			url: `../submitOrder/submitOrder?shop_id=${shop_id}`
+		})
+	},
 
 	onLoad: function (options) {
 		const id = options.id
-		console.log(id)
 		this.load(id)
 		this.hasCarList()
-
+		wx.getSystemInfo({
+			success: res => {
+				this.setData({
+					screenWidth: res.windowWidth,
+					screenHeight: res.windowHeight
+				}) 
+			}
+		})
 	},
+	
 
 	/**
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function (options) {
-		// const id = '1'
-
 		this.hasCarList()
 		this.showDetails()
 		this.getTotalPrice()

@@ -16,7 +16,7 @@
                             <text class="deliverTime">{{item.deliver_time}}</text>
                         </view>
                         <view class="deliver_price">
-                            <view class="basePrice">{{item.deliverMsg.basePrice}}</view>
+                            <view class="basePrice">{{item.deliverMsg.basePrice}}元基础运费</view>
                         </view>
                     </view>
                 </view>
@@ -42,7 +42,9 @@
                                 <image src="{{one.image}}" style="width: 140rpx; height: 140rpx;"></image>
                             </view>
                             <view class="cate-detail cate_right">
-                                <view class="title"><text>{{one.title}}</text></view>
+                                <view class="title">
+                                    <text>{{one.title}}</text>
+                                </view>
                                 <view class="sale_status">
                                     <text>月售{{one.sale_month}}件 </text>|
                                     <text>{{one.score}}</text>
@@ -53,7 +55,12 @@
                                     <text class="pre_price" style="display: {{one.pre_price?'':'none'}}">{{one.pre_price}}</text>
                                 </view>
                             </view>
-                            <view class="add_car" data-id="{{one.id}}" catchtap="addCart"><text> + </text></view>
+                            <view class="add_car" data-id="{{one.id}}" catchtap="addCart">
+                                <text> + </text>
+                            </view>
+                            <view animation="{{animationY}}" style="position:fixed;top:{{ballY}}px;" hidden="{{!showBall}}">
+                                <view class="ball" animation="{{animationX}}" style="position:fixed;left:{{ballX}}px;"></view>
+                            </view>
                         </view>
                     </block>
                 </block>
@@ -68,7 +75,7 @@
             <icon class="total-select" type="{{selectAllStatus?'success':'circle'}}" color="#4DCC57" bindtap="selectAll" />
             <text>{{selectAllStatus?'全选':'全不选'}}</text>
             <text class="cart-total-num"> (已选{{shopCar.length}}件)</text>
-            <text class="clear_cart" catchtap="cleaCart">清空购物车</text>
+            <text class="clear_cart" catchtap="clearCart">清空购物车</text>
         </view>
         <scroll-view scroll-y style="width: 100%; height: 700rpx;">
             <view class="weui-actionSheet__menu" style="width: 100%;">
@@ -88,7 +95,7 @@
                                 <text style="color: red;">￥{{item.cur_price}}</text>
                                 <text class="pre_price" style="display: {{item.pre_price?'':'none'}}">{{item.pre_price}}</text>
                             </view>
-                            
+
                             <view class="cart-count-box">
                                 <text class="cart-count-down" bindtap="minusCount" data-index="{{index}}"></text>
                                 <text class="cart-count-num">{{item.num}}</text>
@@ -114,7 +121,7 @@
                 </view>
 
             </view>
-            <view class="weui-cell__ft pay" style="{{shopCar.length==0?'':'background: #4DCC57'}}">
+            <view class="weui-cell__ft pay" style="{{shopCar.length==0?'':'background: #4DCC57'}}" catchtap="submitOrder">
                 <text>去结算</text>
             </view>
         </view>

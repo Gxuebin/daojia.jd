@@ -263,3 +263,14 @@
     color: #4DCC57;
     font-weight: bold;
 }
+
+
+.ball {
+    width: 40rpx;
+    height: 40rpx;
+    background-color: #4DCC57;
+    border-radius: 50%;
+    z-index: 999;
+}
+
+
