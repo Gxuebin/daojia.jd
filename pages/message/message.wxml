@@ -1,0 +1,9 @@
+<view class="main">
+    <block wx:if="{{message.length}}">
+    </block>
+    <block wx:else>
+        <view class="noMessage">
+        </view>
+        <text class="noMessageText">暂无系统消息</text>
+    </block>
+</view>
