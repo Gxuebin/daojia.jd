@@ -99,7 +99,6 @@ Page({
     })
   },
   switchCate(e) {
-    console.log(e)
     const id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: `../mainPageCate/cate?id=${id}`
