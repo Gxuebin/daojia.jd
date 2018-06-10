@@ -1,14 +1,20 @@
 {
     "pages": [
         "pages/index/index",
-        "pages/search/search",
-        "template/searchBar/searchBar",
-        "pages/relax2buy/relax2buy",
-        "pages/user/user",
-        "pages/category/category",
-        "pages/logs/logs",
+        "pages/submitOrder/submitOrder",
+        "pages/orderlist/orderlist",
         "pages/location/location",
-        "pages/innerShop/innerShop"
+        "pages/address/address",
+        "pages/category/category",
+        "pages/search/search",
+        "pages/innerShop/innerShop",
+        "pages/mainPageCate/cate",
+        "pages/user/user",
+        "pages/shopCar/shopCar",
+        "template/searchBar/searchBar",
+        "pages/logs/logs",
+        "pages/message/message",
+        "pages/pay/pay"
     ],
     "window": {
         "backgroundTextStyle": "light",
@@ -31,8 +37,8 @@
                 "selectedIconPath": "assets/images/21.png"
             },
             {
-                "pagePath": "pages/relax2buy/relax2buy",
-                "text": "轻松购",
+                "pagePath": "pages/shopCar/shopCar",
+                "text": "购物车",
                 "iconPath": "assets/images/30.png",
                 "selectedIconPath": "assets/images/31.png"
             },
