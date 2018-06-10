@@ -1,6 +1,5 @@
 <template name="menu">
     <view class="section menu">
-        <!-- <text>{{scrollHeight}}</text> -->
         <scroll-view scroll-y style="height: auto;">
             <view class="menu-box">
                 <block wx:for="{{menu}}" wx:key="index">
