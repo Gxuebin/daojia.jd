@@ -1,0 +1,76 @@
+<view class="main order">
+    <view class="order-hd">
+        <view class="address">
+            <view class="new-addr_btn">
+                <button class="weui-btn weui_btn_mini newAddrBtn" type="default">新建收货地址</button>
+            </view>
+            <!-- <view class="showAddr">
+                <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                    <view class="weui-cell__bd">
+                        <view class="addr"></view>
+                        <view class="reveiver"></view>
+                    </view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </navigator>
+            </view> -->
+        </view>
+    </view>
+    <view class="order-bd">
+        <view class="delive-way">
+            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                    <view class="deliver" style="{{deliver_method == '达达专送'?'background-color: #2486FF;':''}}">
+                        <text class="deliverMethod">{{deliver_method}}</text>
+                    </view>
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access  deliver-time">{{deliver_method == '达达专送'?'立即送达':'今天'}} 10:00 - 11:00</view>
+            </navigator>
+        </view>
+        <view class="goods-info">
+            <view class="shop-name">
+                <view class="before"></view>
+                <text>{{shopName}}</text>
+                <view class="after"></view>
+            </view>
+            <block wx:for="{{shopCart}}" wx:key="index">
+                <view class="goods-detail">
+                    <view class="goods-detail_img">
+                        <image src="{{item.image}}"></image>
+                    </view>
+                    <view class="goods-detail_text">
+                        <view class="goods-name">{{item.title}}</view>
+                        <view class="num-price">￥{{item.cur_price}}x{{item.num}}</view>
+                        <view class="sum-price">￥{{item.cur_price*item.num}}</view>
+                    </view>
+                </view>
+            </block>
+            <view class="goods-num">共{{shopCart.length}}件</view>
+            <view class="total-price">
+                <text>商品金额</text>
+                <text>￥{{totalPrice}}</text>
+            </view>
+            <view class="deliver-price">
+                <text>配送费</text>
+                <text>{{deliver_price}}</text>
+            </view>
+            <veiw class="conpon">
+                <view class="conpon-desc">
+                    <text>优惠券</text>
+                    <text class="conpon-price">-￥{{conpon_price}}</text>
+                </view>
+                <view class="conpon-detail"></view>
+            </veiw>
+            <view class="order-summary">
+                <text>已优惠￥15</text>
+                <text>实付金额</text>
+                <text class="actual-price">￥{{actual_price}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="order-ft">
+        <view class="add-order-remarks"></view>
+        <view class="submit-order_btn" catchtap="toPay">
+            <button class="weui-btn" type="primary">提交订单</button>
+        </view>
+    </view>
+</view>
