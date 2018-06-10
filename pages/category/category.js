@@ -23,24 +23,19 @@ Page({
 		title: '水果蔬菜'
 	},
 	switchCategory(e) {
-		// console.log(e)
 		let index = e.currentTarget.dataset.index
 		let toView = e.currentTarget.dataset.id
-
 		this.setData({
 			curIndex: index,
 			toView,
 		})
-		
 	},
 	showCate() {
 		const cateList = app.globalData.categories
-		// console.log(cateList)
 		this.setData({
 			detail: cateList,
 			curIndex: '0',
 		})
-		console.log(this.data.detail)
 	},
 
 	/**
