@@ -24,37 +24,47 @@ Page({
 	},
 	
 	runBall(e) {
+		console.log(e)
 		let bottomX = this.data.screenWidth,
 		bottomY = this.data.screenHeight
 		//实例化一个动画
 		this.animationX = wx.createAnimation({
 			duration: 1000, 
 			timingFunction: 'linear',
-			delay: 0,
 		})
 		this.animationY = wx.createAnimation({
 			duration: 1000, 
 			timingFunction: 'cubic-bezier(.93,-0.11,.85,.74)',
-			delay: 0
 		})
-
-		// x, y表示手指点击横纵坐标, 即小球的起始坐标
 		let ballX = e.detail.x,
-			ballY = e.detail.y
-			console.log(ballX, ballY)
+		ballY = e.detail.y
+		console.log(ballX, ballY)
+		this.setData({
+			ballX: ballX-10,
+			ballY,
+			showBall: false,
+			jump: false
+		})
+		// x, y表示手指点击横纵坐标, 即小球的起始坐标
+		this.setDelayTime(10).then(() => {
+			
+			this.animationX.translateX(-100).step()
+			this.animationY.translateY(-20).step()
 			this.setData({
-				ballX: ballX - 20,
-				ballY,
+				animationX: this.animationX.export(),
+				animationY: this.animationY.export()
+			})
+			return this.setDelayTime(200);
+		}).then(() => {
+			this.setData({
 				showBall: true
 			})
-		this.setDelayTime(10).then(() => {
 			this.animationX.translateX(-ballX-ballY*0.5).step()
 			this.animationY.translateY(bottomY).step()
 			this.setData({
 				animationX: this.animationX.export(),
 				animationY: this.animationY.export()
 			})
-			// 400ms延时, 即小球的抛物线时长
 			return this.setDelayTime(1000);
 		}).then(() => {
 			this.animationX.translateX(0).step()
@@ -65,8 +75,6 @@ Page({
 				animationY: this.animationY.export()
 			})
 		})
-		
-			
 	},
 	setDelayTime(sec) {
 		return new Promise((resolve, reject) => {
@@ -107,6 +115,7 @@ Page({
 				return item
 			}
 		})
+		console.log(curMenu)
 		this.setData({
 			shopInfo: curShop,
 			menuList: { ...curMenu[0] },
@@ -116,6 +125,7 @@ Page({
 		wx.setNavigationBarTitle({
 			title: name
 		})
+		console.log(this.data.menuList)
 	},
 	/**
 	 * 生命周期函数--监听页面加载
@@ -147,10 +157,13 @@ Page({
 		this.load(id)
 	},
 	switchCategory(e) {
+		console.log(e)
 		let index = e.currentTarget.dataset.index ? e.currentTarget.dataset.index : 0
+		console.log(index)
 		const curList = this.data.menuList
 		curList.curIndex = index
 		let toView = e.currentTarget.dataset.id
+		// console.log(toView)
 		this.setData({
 			menuList: curList,
 			toView: toView ? toView : 'noView'
@@ -166,6 +179,7 @@ Page({
 				myCart = item.list
 			}
 		})
+		console.log(myCart)
 		this.setData({
 			clicked: !this.data.clicked,
 			shopCar: myCart
@@ -175,6 +189,7 @@ Page({
 	},
 	showDetails() {
 		const temp = app.globalData.details
+		// console.log(this.data.toView)
 		const details = temp.filter(item => {
 			if (item.id == this.data.toView) {
 				return item
@@ -242,10 +257,13 @@ Page({
 				wx.setStorageSync('myCart', preCart)
 			}
 		}
-		this.setDelayTime(100).then(() => {
+		this.runBall(e)
+		this.setDelayTime(1000).then(() => {
 			this.hasCarList()
 			this.getTotalPrice()
-			this.runBall(e)
+			this.setData({
+				jump: true
+			})
 		})
 		
 	},
@@ -293,6 +311,7 @@ Page({
 
 	operateNum(index, operation) {
 		const carts = this.data.shopCar
+		// console.log(carts)
 		carts.forEach((item, id) => {
 			if (id == index) {
 				if (operation === '+') {
@@ -305,9 +324,12 @@ Page({
 		return carts
 	},
 	addCount(e) {
+		// console.log(e)
 		let index
 		if (typeof (e) == 'string') {
 			const temp = this.data.shopCar
+			// console.log(temp)
+			// return
 			temp.forEach((item, id) => {
 				if (item.id == this.data.shop_id) {
 					item.list.forEach(ele => {
@@ -396,11 +418,13 @@ Page({
 	checkCart() {
 		const carts = this.data.shopCar
 		let arr = []
+		console.log(carts)
 		carts.forEach((item, index) => {
 			if (!item.selected) {
 				arr.push(item.id)
 			}
 		})
+		console.log(...arr)
 		for (const i of arr) {
 			this.selectCart(i)
 		}
@@ -418,6 +442,7 @@ Page({
 				})
 			}
 		})
+		console.log(shopCar)
 		wx.setStorage({
 			key: 'myCart',
 			data: shopCar
@@ -433,6 +458,7 @@ Page({
 
 	onLoad: function (options) {
 		const id = options.id
+		console.log(id)
 		this.load(id)
 		this.hasCarList()
 		wx.getSystemInfo({
@@ -450,6 +476,8 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function (options) {
+		// const id = '1'
+
 		this.hasCarList()
 		this.showDetails()
 		this.getTotalPrice()

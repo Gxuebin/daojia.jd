@@ -114,7 +114,7 @@
         <view class="shop_ft" style="z-index: -999;">
             <view class="weui-cell shop_car">
                 <view class="weui-cell__hd {{shopCar.length==0?'car-icon_empty':'car-icon_fill'}}" catchtap="{{shopCar.length==0?'':'showCart'}}">
-                    <view class="weui-badge" style="position: absolute; display: {{shopCar.length==0?'none':''}}">{{shopCar.length}}</view>
+                    <view class="weui-badge {{jump?'badgeJump':''}}" style="position: absolute; display: {{shopCar.length==0?'none':''}}">{{shopCar.length}}</view>
                 </view>
                 <view class="weui-cell__bd car_status" style="{{shopCar.length==0?'':'color: red;'}}">
                     <text>{{shopCar.length==0?'购物车是空的':car_status}}</text>

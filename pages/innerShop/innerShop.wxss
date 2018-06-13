@@ -196,6 +196,21 @@
     vertical-align:middle;
 }
 
+.badgeJump {
+    animation: up 500ms;
+}
+@keyframes up {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-50rpx);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
 .activity {
     height: 200rpx;
     border: 1px solid #F43530;
