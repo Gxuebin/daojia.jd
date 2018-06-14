@@ -866,5 +866,6 @@ export default {
             title: '关于我们',
             image: 'https://img30.360buyimg.com/mobilecms/jfs/t7294/354/3886152423/1137/b1def6c9/59f86273N0c5a763c.png'
         },
-    ]
+    ],
+    keyList: ['西红柿', '生菜', '红苋菜', '生日蛋糕', '水果蛋糕', '下午茶']
 }

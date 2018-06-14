@@ -20,7 +20,7 @@
                 <text class="yf yt">搜索历史</text>
                 <view class="history_items">
                     <block wx:for="{{history_record}}" wx:key="index">
-                        <view class="history_record">{{item}}</view>
+                        <view class="history_record" catchtap="add_search" data-index="{{item}}">{{item}}</view>
                     </block>
                 </view>
             </view>

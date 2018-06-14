@@ -21,7 +21,8 @@ Page({
 		this.setData({
 			search: {
 				inputVal: ""
-			}
+			},
+			hasItems: false,
 		});
 	},
 	inputTyping: function (e) {
@@ -30,8 +31,31 @@ Page({
 				inputVal: e.detail.value
 			},
 			input: e.detail.value,
+			isInput: true
 		})
-		this.searchItem(e.detail.value)
+		// this.searchItem(e.detail.value)
+		this.showKeyList(e.detail.value)
+	},
+	showKeyList(keyWords) {
+		const key = keyWords ? keyWords.split('') : []
+		const keyListAll = app.globalData.keyList
+		const keyList = []
+		keyListAll.forEach(item => {
+			key.forEach(k => {
+				let i = item.indexOf(k)
+				if (i > -1) {
+					keyList.push(item)
+				}
+			})
+		})
+		console.log(keyList)
+		this.setData({
+			hasItems: true,
+			search: {
+				keyList,
+				hasItems: true,
+			}
+		})
 	},
 	searchItem(keyWords) {
 		const goods = app.globalData.details
@@ -42,40 +66,29 @@ Page({
 				temp.push(ele)
 			})			
 		})
-		const cur = []
-		const desc = new Set()
-		const key = keyWords ? keyWords.split('') : []
-		temp.forEach(ele => {
-			key.forEach(k => {
-				let i = ele.title.indexOf(k)
-				if (i > -1) {
-					cur.push(ele.id)
-					desc.add(ele)
-				}
-			})
-		})
+		this.search(keyWords, temp)
 		const list = []
 		shops.forEach(item => {
-			cur.forEach(i => {
+			this.data.cur.forEach(i => {
 				if (item.goodslist.indexOf(i) > -1) {
 					list.push(item)
 				}
 			})
 		})
-
 		var resList = Array.from(new Set([...list]))
 		this.setData({
 			search: {
 				resList,
-				desc: Array.from(desc)
+				desc: this.data.search.desc,
 			},
 		})
-		if (this.data.search.resList.length>0) {
+		if (this.data.search.resList.length > 0) {
+			console.log(this.data.search.desc)
 			this.setData({
 				hasItems: true,
 				search: {
 					resList,
-					desc: Array.from(desc),
+					desc: this.data.search.desc,
 					hasItems: true,
 				},
 			})
@@ -87,6 +100,28 @@ Page({
 				},
 			})
 		}
+	},
+	search(keyWords, arr) {
+		const cur = []
+		const desc = new Set()
+		const key = keyWords ? keyWords.split('') : []
+		console.log(key)
+		arr.forEach(ele => {
+			key.forEach(k => {
+				let i = ele.title.indexOf(k)
+				if (i > -1) {
+					cur.push(ele.id)
+					desc.add(ele)
+				}
+			})
+		})
+		this.setData({
+			cur,
+			search: {
+				desc: Array.from(desc)
+			}
+		})
+		console.log(this.data.search.desc)
 	},
 	add_search(e) {
 		const index = e.currentTarget.dataset.index
@@ -114,6 +149,7 @@ Page({
 		}
 		const history = wx.getStorageSync('history')
 		let rec = this.data.input	
+		this.searchItem(rec)
 		wx.setStorageSync('history', [rec, ...history])
 		this.setData({
 			history_record: [rec, ...history]

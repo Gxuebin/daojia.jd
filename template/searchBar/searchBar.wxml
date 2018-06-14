@@ -16,6 +16,11 @@
             </view>
         </view>
         <view class="weui-cells searchbar-result shoplist" style="display: {{inputVal.length?'':'none'}};">
+            <block wx:for="{{keyList}}">
+                <view class="weui-cell__bd keyItem" catchtap="add_search" data-index="{{item}}">
+                    <view>{{item}}</view>
+                </view>
+            </block>
             <block wx:for="{{resList}}">
                 <view class="weui-cell__bd">
                     <navigator hover-class="none" url="../innerShop/innerShop?id={{item.id}}">
